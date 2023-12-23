@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "danotes-bbb4c": {
+      "hosting": {
+        "da-keep": [
+          "danotes-bbb4c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "danotes-bbb4c"
+  }
+}
