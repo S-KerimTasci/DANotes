@@ -13,7 +13,11 @@ export class NoteListComponent {
   status: "notes" | "trash" = "notes";
 
   constructor(private noteService: NoteListService) {
-    this.noteList = this.getDummyData()
+    
+  }
+
+  getList() :Note[]{
+    return this.noteService.normalNotes;
   }
 
   changeFavFilter(filter: "all" | "fav") {
