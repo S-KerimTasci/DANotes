@@ -40,13 +40,13 @@ export class NoteListService {
   }
   // const itemCollection = collection(this.firestore, 'items');
 
-  async addNote(item: Note, colId: 'notes' | 'trash'){
+  async addNote(item: Note, colId: "notes" | "trash"){
 
     let reff; 
-    if (colId = 'notes') {
-      reff = this.getNotesRef()
+    if (colId == "notes") {
+      reff = this.getNotesRef();
     } else { 
-      reff = this.getTrashRef()
+      reff = this.getTrashRef();
     }
 
     await addDoc(reff, item).catch(
@@ -54,15 +54,6 @@ export class NoteListService {
     ).then(
       (docRef) => {console.log("Document written with ID: ", docRef?.id);}
     )
-  }
-
-  setColID(colId: 'notes' | 'trash'){
-    if (colId = 'notes') {
-      let reff = this.getNotesRef()
-    } else { 
-      let reff = this.getTrashRef()
-    }
-    
   }
 
   async updateNote(note: Note){

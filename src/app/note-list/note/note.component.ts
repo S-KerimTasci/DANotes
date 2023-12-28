@@ -8,51 +8,62 @@ import { NoteListService } from '../../firebase-services/note-list.service'
   styleUrls: ['./note.component.scss']
 })
 export class NoteComponent {
-  @Input() note!:Note;
+  @Input() note!: Note;
   edit = false;
   hovered = false;
-  
-  constructor(private noteService: NoteListService){}
 
-  changeMarkedStatus(){
+  constructor(private noteService: NoteListService) { }
+
+  changeMarkedStatus() {
     this.note.marked = !this.note.marked;
     this.saveNote();
   }
 
-  deleteHovered(){
-    if(!this.edit){
+  deleteHovered() {
+    if (!this.edit) {
       this.hovered = false;
     }
   }
 
-  openEdit(){
+  openEdit() {
     this.edit = true;
   }
 
-  closeEdit(){
+  closeEdit() {
     this.edit = false;
     this.saveNote();
   }
 
-  moveToTrash(){
+  moveToTrash() {
     if (this.note.id) {
       this.note.type = 'trash';
-    let docID = this.note.id;
-    delete this.note.id;
-    this.noteService.addNote(this.note, "trash");
-    this.noteService.deleteNote("notes", docID);
+      let docID = this.note.id;
+      delete this.note.id;
+      this.noteService.addNote(this.note, "trash");
+      this.noteService.deleteNote("notes", docID);
     }
   }
 
-  moveToNotes(){
-    this.note.type = 'note';
+  moveToNotes() {
+    // this.note.type = 'note';
+    if (this.note.id) {
+      this.note.type = 'note';
+      let docID = this.note.id;
+      delete this.note.id;
+      this.noteService.addNote(this.note, "notes");
+      this.noteService.deleteNote("trash", docID);
+    }
   }
 
-  deleteNote(){
+  deleteNote() {
+    if (this.note.id) {
+      this.noteService.deleteNote("trash", this.note.id);
+    }
+
 
   }
 
-  saveNote(){
+  saveNote() {
     this.noteService.updateNote(this.note)
   }
 
