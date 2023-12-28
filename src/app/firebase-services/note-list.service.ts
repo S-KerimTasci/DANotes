@@ -100,6 +100,8 @@ export class NoteListService {
   }
 
   subNotesList() {
+    // Um Subcollections anzuzeigen kann man die colId  wie eine URL schreiben:
+    //let extraReff =  collection(this.firestore, "notes/9D8pBItYgCZna6gtgRGg/notesExtra")
     const q = query(this.getNotesRef(), orderBy("title"), limit(100));
 
     return onSnapshot(q, (list) => {
